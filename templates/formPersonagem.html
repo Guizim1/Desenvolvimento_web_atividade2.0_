@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário Personagem</title>
+</head>
+<body>
+    <h2>{{title}}</h2>
+    <p><a href="/">Retornar ao Índice</a></p>
+    <div class="container">
+        <form method="post" class="formentry">
+            <div class="linha">
+                <label for="nome">
+                    Nome:
+                    <input type="text" name="nome" value="{{Personagem['nome_person']}}" maxlength="60" required>
+                </label>
+            </div>
+
+            <div class="linha">
+                <label for="poder">
+                    Poder:
+                    <input type="text" name="poder" value="{{Personagem['poder_person']}}" maxlength="255" required>
+                </label>
+            </div>
+
+            <div class="linha">
+                <label for="arma">
+                    Arma:
+                    <input type="text" name="arma" value="{{Personagem['arma_person']}}" maxlength="30" required>
+                </label>
+            </div>
+
+            <div class="linha">
+                <label for="forca">
+                    Força:
+                    <input type="number" name="forca" value="{{Personagem['forca_person']}}" min="0" max="100" required>
+                </label>
+            </div>
+            <div class="linha">
+                <label for="agilidade">
+                    Agilidade:
+                    <input type="number" name="agilidade" value="{{Personagem['agilidade_person']}}" min="0" max="100" required>
+                </label>
+            </div>
+
+            <div class="linha">
+                <label for="nivel">
+                    Nível:
+                    <input type="number" name="nivel" value="{{Personagem['nivel_person']}}" min="1" max="100" required>
+                </label>
+            </div>
+            <div class="linha">
+                <label for="grupo">
+                    Grupo:
+                    {% if Grupo.__len__() == 0 %}
+                    Não há <a href="/Grupos">Grupos</a> Registrados!
+                    {% else %}
+                    <select name="grupo" id="grupo" required>
+                        {% for grupo in Grupo %}
+                        <option value="{{grupo['id']}}">{{grupo['nome_Grupo']}}</option>
+                        {% endfor %}
+                    </select>
+                    {% endif %}
+                </label>
+            </div>
+
+            <div class="linha">
+                <label for="missao">
+                    Missões:
+                    {% if Missoes.__len__() == 0 %}
+                    Não há <a href="/Missoes">Missões</a> Registradas!
+                    {% else %}
+                    <select name="missao" id="miss" required>
+                        {% for miss in Missoes %}
+                        <option value="{{miss['id']}}">{{miss['objetivo_mis']}}</option>
+                        {% endfor %}
+                    </select>
+                    {% endif %}
+                </label>
+            </div>
+            <div class="linha">
+                <label for="genero">
+                    Gênero:
+                    {% if Genero.__len__() == 0 %}
+                    Não há <a href="/Genero">Gêneros</a> Registrados!
+                    {% else %}
+                    <select name="genero" id="gene" required>
+                        {% for gene in Genero %}
+                        <option value="{{gene['id']}}">{{gene['tipo_gene']}}</option>
+                        {% endfor %}
+                    </select>
+                    {% endif %}
+                </label>
+            </div>
+            <div>
+                {% if Grupo.__len__() == 0 or Missoes.__len__() == 0 or Genero.__len__() == 0 %}
+                <p>Registre as outras Entidades Obrigatórias antes de registrar um personagem</p>
+                {% else %}
+                <button type="submit">Enviar</button>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+</body>
+</html>
